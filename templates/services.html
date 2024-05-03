@@ -1,0 +1,91 @@
+{% extends "base.html"%}
+{% block content %}
+    
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services</title>
+<style>
+    #header.header-transparent {
+  background: rgba(55, 142, 181, 0.9);
+}
+.about-btn {
+  display: inline-block;
+  background: #67b0d1;
+  padding: 6px 44px 8px 30px;
+  color: #fff;
+  border-radius: 50px;
+  transition: 0.3s;
+  position: relative;
+}
+
+.about-btn i {
+  font-size: 18px;
+  position: absolute;
+  right: 18px;
+  top: 9px;
+}
+
+</style>
+<script>
+    $SCRIPT_ROOT = {{ request.script_root|tojson }};
+</script>
+</head>
+<body>
+    
+    <div class="container">
+      
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="d-flex align-items-stretch">
+            <div class="icon-boxes d-flex flex-column justify-content-center">
+              <div class="row">
+                <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
+                    <i class="bx bx-cube-alt"style="font-size: 30px;"></i>
+                    
+                  <h3>Disease Prediction</h3>
+            <p>Get personalized disease predictions based on your symptoms.</p>
+            <a href="/checkdisease" class="about-btn">Explore<i class="bx bx-chevron-right"></i></a><br><br>
+
+                </div>
+                <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="200">
+                    <i class="bx bx-receipt"style="font-size: 30px;"></i>
+                  <h3>Diabetes Prediction</h3>
+                  <p>Fastest way to know weather you have diabetes or not.</p>
+                  <a href="/diabeties" class="about-btn">Explore<i class="bx bx-chevron-right"></i></a><br><br>
+                </div>
+                <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="300">
+                    <i class="bx bx-shield"style="font-size: 30px;"></i>
+                  <h3>Booking Appointment with Doctors</h3>
+                  <p>Consult to the best doctors in the town and get diagnosed with them remotely.</p>
+                  <a href="/appoinment" class="about-btn">Explore<i class="bx bx-chevron-right"></i></a><br><br>
+                </div>
+                <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="400">
+                  
+                    <i class="bx bx-images"style="font-size: 30px;"></i>
+                      
+                  <h3>Medical History</h3>
+                  <p>Check the history of the consultation you have done with our best doctors.</p>
+                  <a href="{{url_for('history', u_id = session.user.u_id)}}" class="about-btn">Explore<i class="bx bx-chevron-right"></i></a><br><br>
+                </div>
+              </div>
+            </div><!-- End .content-->
+       
+            
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</body>
+</html>
+ {% endblock %}

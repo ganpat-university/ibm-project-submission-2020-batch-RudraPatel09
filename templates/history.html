@@ -1,0 +1,110 @@
+{% extends "base.html"%}
+{% block content %}
+    
+<html>
+  <style>
+     #header.header-transparent {
+      background: rgba(55, 142, 181, 0.9);}
+  </style>
+  <br>
+  <br>
+  <br>
+  <br>
+  <legend class="text-center">Medical History</legend>
+<div class="card-content" style="margin-left:100px;margin-right:100px;">
+    <table id="appointmentTable" class="cell-border compact stripe" align="left" >
+      <thead>
+      <tr>
+          <th>ID</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Report</th>
+          <th>Doctor Name</th>
+          <th>Payment Status</th>
+          <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+        {% for app in history%}
+      <tr>
+          <td>{{ app.ap_id }}</td>
+          <td>{{ app.ap_date }}</td>
+          <td>{{ app.ap_time }}</td>
+          <td>
+            <button class="btn-view-file temp" data-file="{{ url_for('static', filename='reports/' + app.ap_report) }}">View File</button>
+        </td>
+        <td>Dr. {{ app.d_name }}</td>
+          <td>{{app.ap_payment_status}}</td>
+          <td>
+            {% if app.ap_status == 'pending' %}
+            <button class="button small grey --jb-modal temp"  data-target="sample-modal-2" type="button" value="Pending">Pending</button></a>
+             {% elif app.ap_status == 'accept' %}
+            <button class="button small green --jb-modal temp"  data-target="sample-modal-2" type="button" value="Accept" disabled>Accept</button>
+            {% elif app.ap_status == 'reject' %}
+            <button class="button small red --jb-modal temp"  data-target="sample-modal-2" type="button" value="Reject" disabled>Reject</button> 
+            {% endif %}
+          </td>
+      </tr>
+      {% endfor %}
+      <div class="modal fade" id="fileModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">File Viewer</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="fileContent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+      </tbody>
+    </table>
+</div>
+<br>
+<br>
+</html>
+<style>
+  
+ .temp {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 10px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  background-color: transparent;
+}
+
+</style>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css">
+
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
+<script> 
+new DataTable('#appointmentTable');
+$(document).ready( function () {
+    $('#appointmentTable').DataTable();
+} );
+$(document).ready(function() {
+        $('.btn-view-file').click(function() {
+            var fileUrl = $(this).data('file');
+            var fileExtension = fileUrl.split('.').pop().toLowerCase();
+            if (fileExtension === 'pdf') {
+                $('#fileContent').html('<embed src="' + fileUrl + '" type="application/pdf" style="width: 100%; height: 600px;">');
+            } else if (fileExtension === 'jpg' || fileExtension === 'jpeg' || fileExtension === 'png') {
+                $('#fileContent').html('<img src="' + fileUrl + '" style="width: 100%;">');
+            } else {
+                $('#fileContent').html('<p>Unsupported file format</p>');
+            }
+            $('#fileModal').modal('show');
+        });
+    });
+</script>
+
+{% endblock %}

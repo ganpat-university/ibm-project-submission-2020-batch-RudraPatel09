@@ -1,0 +1,84 @@
+{% extends "admin/header.html"%}
+{% block content %}
+<section class="is-title-bar">
+  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+    <ul>
+      <li>Admin</li>
+      <li>Dashboard</li>
+    </ul>
+ 
+  </div>
+</section>
+
+<section class="is-hero-bar">
+  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+    <h1 class="title">
+      Hello Admin!
+    </h1>
+  </div>
+</section>
+<div class="dashboard">
+  <div class="number-container">
+      <strong><h2 class="heading">Total Users</h2></strong>
+      <h1 class="number">{{ total_users }}</h1>
+  </div>
+  <div class="number-container">
+      <strong><h2 class="heading">Total Doctor</h2></strong>
+      <h1 class="number">{{ total_doctors }}</h1>
+  </div>
+</div>
+<style>
+  .dashboard {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 100vh;
+    padding: 20px; /* Added padding to create space around the number boxes */
+}
+
+.number-container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-right: 20px; /* Added margin to create space between number boxes */
+}
+
+.heading {
+    margin-top: 0;
+    font-size: 24px;
+    color: #666666;
+}
+
+.number {
+    margin: 10px 0 0;
+    font-size: 48px;
+    color: #333333;
+}
+</style>
+
+
+
+  {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <a href="{{ url_for('user') }}">User</a>
+<a href="{{ url_for('doctor') }}">doctor</a> -->

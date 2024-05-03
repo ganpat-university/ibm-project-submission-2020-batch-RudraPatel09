@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!DOCTYPE html>
+<body lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Disease</title>
+</head>
+<body>
+<style>
+ #header.header-transparent {
+        background: rgba(55, 142, 181, 0.9);
+    }
+    
+    /* Add your CSS styles here */
+    body {
+        font-family: Arial, sans-serif;
+    }
+    
+    .form-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    
+    .search-bar {
+        width: 90%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        box-sizing: border-box;
+        margin-left: 50PX;
+        margin-right: 100PX;
+    }
+    
+    .symptom-list-container {
+        max-height: 300px; /* Adjust the max-height as needed */
+        overflow-y: auto; /* Enable vertical scrollbar */
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    
+    .symptom-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .symptom-item {
+        padding: 10px;
+        cursor: pointer;
+    }
+    
+    .symptom-item:hover {
+        background-color: #f0f0f0;
+    }
+    
+    .symptom-item.selected {
+        background-color: #409cc5;
+        color: #fff;
+    }
+    
+    .submit-btn {
+        padding: 10px 20px;
+        background-color: #409cc5;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    .submit-btn:hover {
+        background-color: #385b6b;
+    }
+
+    .list-box {
+  max-height: 20rem;
+  overflow: auto;
+  border: 0px ;
+  border-radius: .5rem;
+  width: 90%;
+  font-size: 16px; /* Adjust font size as needed */
+  margin-left: 50px;
+}
+
+.list-box option {
+  padding: .5rem 1rem;
+  user-select: none;
+  background-color: #fff; /* Default background color */
+}
+
+.list-box option[selected] {
+  background-color: #409cc5; /* Selected background color */
+  color: #fff; /* Selected text color */
+}
+
+.list-box option[focused] {
+  background-color: rgba(0, 0, 0, .001); /* Focused background color */
+}
+/* Style selected options */
+option.selected {
+  background-color: #409cc5; /* Blue background */
+  color: #ffffff; /* White text color */
+}
+
+.result-style {
+    margin:50px;
+    background-color: #409cc5; 
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    color:white
+}
+
+</style>
+    <br>
+    <br>
+
+    <br>
+    <br>
+    <center><h1>Check Disease</h1></center>
+    <form id="symptomForm">
+        <div class="search-container">
+            <div class="selected-options">
+                
+            <input type="text" class = "search-bar" id="searchSymptom" placeholder="Search symptoms..." >
+    </div>
+    </div>
+            <select id="symptomsDropdown" name="symptoms[]" class="list-box" multiple size="5">
+                {% for symptom in list2 %}
+                <option value="{{ symptom }}">{{ symptom }}</option>
+                   {% endfor %}
+              </select>
+        <br>
+
+        <center><button class = "submit-btn" type="submit">Check</button>
+            <button class = "submit-btn" id="refreshButton">Clear Selection</button>
+        </center>
+
+    </form>
+
+
+
+    <div id="result" align="left"></div>
+<br>
+<br>
+<br>
+    <script>
+document.getElementById("symptomForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    var form = event.target;
+    var formData = new FormData(form);
+    
+    fetch('/checkdisease', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        var resultElement = document.getElementById("result");
+        resultElement.innerHTML = "<p><b>Predicted Disease:</b> " + data.predicteddisease + "</p><p><b>Consult to :</b> " + data.consult + "</p><p><b>Consulting Specialist:</b> Dr." + data.consultdoctor + "</p>  <p><strong>Description:</strong> " + data.predicteddiseasedetails.description + "</p><p><strong>Treatment:</strong> " + data.predicteddiseasedetails.treatment + "</p> <button style='background:white; padding:10px; border-radius:10px; border:0px solid;'><a href='/appoinment'> Book Appoinment </button>";
+        
+        resultElement.classList.add("result-style");
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+
+
+
+        document.getElementById("searchSymptom").addEventListener("input", function() {
+    var input, filter, select, option, i;
+    input = document.getElementById("searchSymptom");
+    filter = input.value.toUpperCase();
+    select = document.getElementById("symptomsDropdown");
+    option = select.getElementsByTagName("option");
+    for (i = 0; i < option.length; i++) {
+        if (option[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+            option[i].style.display = "";
+        } else {
+            option[i].style.display = "none";
+        }
+    }
+});
+
+const selectElement = document.getElementById("symptomsDropdown");
+
+selectElement.addEventListener("click", function(event) {
+    const option = event.target;
+    if (option.tagName === 'OPTION') {
+        option.classList.toggle('selected');
+    }
+});
+
+
+
+document.getElementById("refreshButton").addEventListener("click", function() {
+    // Reload the page
+    location.reload();
+});
+
+    </script>
+</body>
+</html>
+{% endblock %}

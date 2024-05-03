@@ -1,0 +1,78 @@
+{% extends "dpanel/header.html"%}
+{% block content %}
+<section class="is-title-bar">
+  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+    <ul>
+      <li>Doctor</li>
+      <li>Dashboard</li>
+    </ul>
+ 
+  </div>
+</section>
+
+<section class="is-hero-bar">
+  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+    <h1 class="title">
+     Welcome, Dr.{{ doctor_name }}
+    </h1>
+  </div>
+</section>
+
+<div class="dashboard" style="margin-left: 10px; margin-top: 10px;">
+  <div class="number-container">
+       <strong><h2 class="heading">Total Appointments</h2></strong>
+      <center><h1 class="number" >{{ appointment_count }}</h1></center>
+  </div>
+</div>
+
+<style>
+  .dashboard {
+    display:block;
+    justify-content: left;
+    text-wrap:nowrap ;
+      width: 260px;
+   height: 25px;
+}
+
+.number-container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.heading {
+    margin-top: 0;
+    font-size: 24px;
+    color: #666666;
+}
+
+.number {
+    margin: 10px 0 0;
+    font-size: 48px;
+    color: #333333;
+}
+</style>
+
+
+  {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <a href="{{ url_for('user') }}">User</a>
+<a href="{{ url_for('doctor') }}">doctor</a> -->

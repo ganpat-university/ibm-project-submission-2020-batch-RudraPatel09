@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+</head>
+<body>
+    <h2>Payment Details</h2>
+    <div id="razorpay-container"></div>
+    
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        var options = {
+            "key": "rzp_test_v0pvmFSNMmSsvi",
+            "amount": 200, // Example amount in paisa
+            "currency": "INR",
+            "name": "V",
+            "description": "appoinment payment",
+            "image": "",
+            "order_id": "{{ order_id }}",
+            "handler": function(response){
+                // Handle successful payment
+                window.location.href = "/success?order_id={{order_id}}";
+            },
+            "prefill": {
+                "name": "John Doe",
+                "email": "john@example.com",
+                "contact": "9999999999"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+
+        var rzp = new Razorpay(options);
+        rzp.open();
+    </script>
+</body>
+</html>

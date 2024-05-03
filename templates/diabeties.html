@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes Prediction</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+  font-family: "Open Sans", sans-serif;
+}
+
+        #header.header-transparent {
+      background: rgba(55, 142, 181, 0.9);}
+    .about-btn {
+  display: inline-block;
+  background: #67b0d1;
+  padding: 6px 44px 8px 30px;
+  color: #fff;
+  border-radius: 50px;
+  transition: 0.3s;
+  position: relative;
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <form action="" method="POST">
+            <fieldset><br><br><br>
+
+                <legend class="text-center">Diabetes Prediction</legend>
+                {% if prediction != -1 %}
+                <div class="alert {% if prediction == 1 %} alert-danger {% else %} alert-success {% endif %}" role="alert">
+                    {% if prediction == 0 %}
+                    It is unlikely for the patient to have diabetes!
+                    {% else %}
+                    It is highly likely that the patient already has or will have diabetes!
+                    {% endif %}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endif %}
+                <div class="form-group" data-aos="fade-up" data-aos-delay="100">
+                    <label for="pregs">Pregnancies</label>
+                    <input type="number" min="0" max="10" class="form-control" name="pregs" required placeholder="No. of Pregnancies">
+                </div>
+                <div class="form-group" data-aos="fade-up" data-aos-delay="200">
+                    <label for="gluc">Glucose Level</label>
+                    <input type="number" class="form-control" name="gluc" required placeholder="Glucose Level (in mg/dL)">
+                </div>
+                <div class="form-group" data-aos="fade-up" data-aos-delay="300">
+                    <label for="bp">Blood Pressure</label>
+                    <input type="number" class="form-control" name="bp" required placeholder="Blood Pressure (in mm Hg)">
+                </div>
+                <div class="form-group" data-aos="fade-up" data-aos-delay="400">
+                    <label for="skin">Skin Thickness</label>
+                    <input type="number" class="form-control" name="skin" required placeholder="Skin Thickness (in mm)">
+                </div>
+                <div class="form-group" data-aos="fade-up" data-aos-delay="500">
+                    <label for="insulin">Insulin</label>
+                    <input type="number" step="0.1" class="form-control" name="insulin" required placeholder="Insulin">
+                </div>
+                <div class="form-group" data-aos="fade-up" data-aos-delay="600">
+                    <label for="bmi">BMI</label>
+                    <input type="number" step="0.1" class="form-control" name="bmi" required placeholder="BMI">
+                </div>
+                <div class="form-group" data-aos="fade-up" data-aos-delay="700">
+                    <label for="func">Diabetes Pedigree Function</label>
+                    <input type="number" step="0.001" class="form-control" name="func" required placeholder="Diabetes Pedigree Function">
+                </div>
+                <div class="form-group" data-aos="fade-up" data-aos-delay="800">
+                    <label for="age">Age</label>
+                    <input type="number" min="21" class="form-control" name="age" required placeholder="Age (in yrs)">
+                </div>
+                <div class="text-center" data-aos="fade-up" data-aos-delay="900">
+                    <button type="submit" class="about-btn"style="border:0px">Predict</button>
+                    <br><br><br><br>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</body>
+
+</html>
+{% endblock %}

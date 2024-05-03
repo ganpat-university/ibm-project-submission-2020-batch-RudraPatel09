@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="{{url_for('static',filename = 'css/style.css')}}">
+
+	</head>
+
+    {% if error_message %}
+    <script>alert("{{ error_message }}");</script>
+    {% endif %}
+	<body class="img js-fullheight" style="background-image: url(static/img/bg.jpg);">
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">Login</h2>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-6 col-lg-4">
+					<div class="login-wrap p-0">
+		      	<h3 class="mb-4 text-center">Have an account?</h3>
+		      	<form method="post" class="signin-form">
+		      		<div class="form-group">
+		      			<input type="text" for="Email" name = "Email" id = "Email" class="form-control" placeholder="Email" required>
+		      		</div>
+	            <div class="form-group">
+	              <input id="password-field" type="password" for="password" id="password" name = "password" class="form-control" placeholder="Password" required>
+	              <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+	            </div>
+	            <div class="form-group">
+                    <input type="submit" class="form-control btn btn-primary submit px-3"value="Login">
+	            </div>
+
+	            <div class="form-group d-md-flex">
+	            	<div class="w-50">
+		            	<label class="checkbox-wrap checkbox-primary">Remember Me
+									  <input type="checkbox" checked>
+									  <span class="checkmark"></span>
+									</label>
+								</div>
+								<div class="w-50 text-md-right">
+									<a href="#" style="color: #fff">Forgot Password</a>
+								</div>
+	            </div>
+	          </form>
+	          <p class="w-100 text-center">&mdash;  &mdash;</p>
+	          <div class="social d-flex text-center">
+	          	<a href="{{ url_for('register') }}" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span> Register</a><br>
+	          	<a href="{{ url_for('dlogin') }}" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> Login as Doctor</a>
+	          </div>
+		      </div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script src="{{url_for('static',filename = 'js/jquery.min.js')}}"></script>
+  <script src="{{url_for('static',filename = 'js/pooper.js')}}"></script>
+  <script src="{{url_for('static',filename = 'js/bootstrap.min.js')}}"></script>
+  <script src="{{url_for('static',filename = 'js/main.js')}}"></script>
+
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+   
+
+    <h1>Login</h1>
+    <form method="post">
+        <label for="Email">Email:</label>
+        <input type="text" id="Email" name="Email" required><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+        <input type="submit" value="Login">
+    </form>
+    <p><a href="{{ url_for('dlogin') }}">For Doctor Panel</a></p>
+    <p><a href="{{ url_for('register') }}">Don't have an account? Register here</a></p>
+</body>
+</html> -->

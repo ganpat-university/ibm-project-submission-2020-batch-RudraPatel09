@@ -1,0 +1,79 @@
+{% extends "base.html"%}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="{{ url_for('static',filename = 'css/styleh.css')}}" rel="stylesheet">
+    <style>
+         #header.header-transparent {
+             background: rgba(55, 142, 181, 0.9);
+         }
+         
+         /* Paste the CSS styles from the first template here */
+         body {
+             font-family: "Open Sans", sans-serif;
+            background-color: #fff;
+         }
+         
+         .about-btn {
+             display: inline-block;
+             background: #67b0d1;
+             padding: 6px 44px 8px 30px;
+             color: #fff;
+             border-radius: 50px;
+             transition: 0.3s;
+             position: relative;
+         }
+         
+         /* You can include other CSS styles specific to the appointment form here */
+    </style>
+</head>
+<body>
+    {% if session.user %}
+    <div class="container">
+        <br><br><br><br><br>
+        <legend class="text-center">Book Appointment</legend>
+        <form class="form-group" action="{{ url_for('process_form')}}" method="POST" enctype="multipart/form-data">
+     
+            <div class="form-group" data-aos="fade-up" data-aos-delay="100">
+            <label  for="name">Name:</label>
+            <input type="text" class="form-control" value="{{session.user.u_id}}" readonly id="name" name="name">
+          
+        </div>
+        <div class="form-group" data-aos="fade-up" data-aos-delay="200">
+            <label class="text-center" for="doc">Select Doctor:</label>
+            <select class="form-control" name="doc" id="doc">
+                <option value="0">Select</option>
+                {% for doctor in doctors %}
+                <option value="{{ doctor.d_id }}">{{ doctor.d_name }} - {{doctor.d_spec}}</option>
+                {% endfor %}
+            </select>
+        </div><div class="form-group" data-aos="fade-up" data-aos-delay="300">
+            <label for="date">Date:</label>
+            <input class="form-control" type="date" name="date" id="date">
+        </div><div class="form-group" data-aos="fade-up" data-aos-delay="400">
+            <label  for="time">Time:</label>
+            <input class="form-control" type="time" name="time" id="time">
+        </div><div class="form-group" data-aos="fade-up" data-aos-delay="500">
+            <label  for="file">Upload File:</label>
+            <input class="form-control" type="file" name="file" id="file" accept=".pdf,.jpg,.jpeg" required>
+<br>
+</div>
+            <center><input class="about-btn"style="border:0px" type="submit" value="Submit" data-aos="fade-up" data-aos-delay="600"></center>
+        </form>
+        <br><br><br>
+    </div>
+    {% else %}
+    <div class="alert">
+        <i class="fas fa-exclamation-circle"></i>
+        You have not logged in. Please <a href="/login">login</a> to access the appointment form.
+    </div>
+    {% endif %}
+</body>
+</html>
+{% endblock %}

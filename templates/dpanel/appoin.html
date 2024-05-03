@@ -1,0 +1,146 @@
+{% extends "dpanel/header.html"%}
+{% block content %}
+<link href="//cdn.datatables.net/2.0.0/css/dataTables.dataTables.min.css" rel = "stylesheet">
+
+<section class="is-title-bar">
+    <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+      <ul>
+        <li>Doctor</li>
+        <li>Appointment</li>
+      </ul>
+    
+    </div>
+  </section>
+  
+ 
+    <section class="section main-section">
+      
+      <div class="card has-table">
+        <header class="card-header">
+          <p class="card-header-title">
+            <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
+            Doctors  
+          </p>
+        </header>
+        <div class="card-content">
+          <table class="table">
+            <thead>
+            <tr>
+        
+                <th>ID</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Report</th>
+                <th>Patient Name</th>
+                <th>Patient Email</th>
+                <th>Action</th>
+                <th>Email Sent </th>
+
+            </tr>
+            </thead>
+            <tbody>
+              {% for app in appointments%}
+            <tr>
+              
+                <td>{{ app.ap_id }}</td>
+                <td>{{ app.ap_date }}</td>
+                <td>{{ app.ap_time }}</td>
+                <td><button class="btn-view-popup temp" data-file="{{ url_for('static', filename='reports/' + app.ap_report) }}">Open Report</button></td>
+         
+                
+                
+                <td>{{ app.u_name }}</td>
+
+                <td> {{app.u_email}}</td>
+
+                <td> {% if app.ap_status == 'pending' %}
+                  <a href ="{{ url_for('update_accept_appoin', app_id = app.ap_id) }}"><button class="button small green --jb-modal"  data-target="sample-modal-2" type="button" value="Accept">Accept</button></a>
+                  <a href ="{{ url_for('update_reject_appoin', app_id=app.ap_id) }}"><button class="button small red --jb-modal"  data-target="sample-modal-2" type="button" value="Reject">Reject</button></a>
+                  {% elif app.ap_status == 'accept' %}
+                  <button class="button small green --jb-modal"  data-target="sample-modal-2" type="button" value="Accept" disabled>Accept</button>
+                  {% elif app.ap_status == 'reject' %}
+                  <button class="button small red --jb-modal"  data-target="sample-modal-2" type="button" value="Reject" disabled>Reject</button> 
+                  {% endif %}
+                </td>
+                <td>
+                  <button class="temp"type="button" onclick="sendEmail('{{ app.u_email }}')">Send Email</button>
+              </td>
+              
+              </form>
+            </tr>
+            {% endfor %}
+</tbody>
+</table>
+
+<style>
+   
+ .temp {
+  border-width: 4px;
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 10px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  background-color: transparent;
+}
+
+</style>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script src="//cdn.datatables.net/2.0.0/js/dataTables.min.js"></script>
+<script> 
+$(document).ready(function() {
+    $('.btn-view-popup').click(function() {
+        var fileUrl = $(this).data('file');
+        var fileExtension = fileUrl.split('.').pop().toLowerCase();
+        if (fileExtension === 'pdf') {
+            window.open(fileUrl, '_blank', 'toolbar=0,location=0,menubar=0');
+        } else if (fileExtension === 'jpg' || fileExtension === 'jpeg' || fileExtension === 'png') {
+            window.open(fileUrl, '_blank', 'toolbar=0,location=0,menubar=0');
+        } else {
+            alert('Unsupported file format');
+        }
+    });
+});
+
+function sendEmail(email) {
+        fetch(`/send_email_flask/${email}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Email has been sent successfully.');
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while sending the email.');
+            });
+    }
+    
+
+
+$(document).ready( function () {
+    $('.table').DataTable();
+} );
+</script>
+
+  {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

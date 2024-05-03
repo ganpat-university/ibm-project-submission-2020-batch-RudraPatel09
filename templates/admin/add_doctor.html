@@ -1,0 +1,105 @@
+{% extends "admin/header.html"%}
+{% block content %}
+<section class="is-title-bar">
+  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+    <ul>
+      <li>Admin</li>
+      <li>Forms</li>
+    </ul>
+    
+  </div>
+</section>
+
+<section class="is-hero-bar">
+  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+    <h1 class="title">
+      Forms
+    </h1>
+    <button class="button light">Button</button>
+  </div>
+</section>
+
+  <section class="section main-section">
+    <div class="card mb-6">
+      <header class="card-header">
+        <p class="card-header-title">
+          <span class="icon"><i class="mdi mdi-ballot"></i></span>
+          Forms
+        </p>
+      </header>
+      <div class="card-content">
+        <form method="post">
+          <div class="field">
+            <label class="label">User Details</label>
+            <div class="field-body">
+              <div class="field">Name
+                <div class="control icons-left">
+                  <input class="input" type="text" or="Name" name = "Name" id = "Name"  placeholder="Name" >
+                  <span class="icon left"><i class="mdi mdi-account"></i></span>
+                </div>
+              </div>
+              <div class="field">Email
+                <div class="control icons-left icons-right">
+                  <input class="input" type="email" for="Email" name = "Email" id = "Email"  placeholder="Email"  >
+                  <span class="icon left"><i class="mdi mdi-mail"></i></span>
+                  <span class="icon right"><i class="mdi mdi-check"></i></span>
+                </div>
+                
+              </div>
+              <div class="field">Password
+                <div class="control icons-left icons-right">
+                  <input class="input" type="text" for="password" id="password" name = "password"  placeholder="Password">
+                  <span class="icon left"><i class="mdi mdi-mail"></i></span>
+                </div>  
+            </div>
+            </div>
+          </div>
+        
+        </div>
+        <div class="field">specialization
+          <div class="control icons-left icons-right">
+            <input class="input" type="text" for="specialization" id="spec" name = "spec"  placeholder="specialization">
+            <span class="icon left"><i class="mdi mdi-mail"></i></span>
+          </div>  
+      </div>
+      </div>
+    </div>
+  
+          <div class="field grouped">
+            <div class="control">
+                <input type="submit" class="button green"value="Update">
+            </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+</section>
+  {% endblock %}
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+    <h1>Edit User</h1>
+<form method="post" class="signin-form">
+		      		<div class="form-group">
+		      			<input type="text" for="Name" name = "Name" id = "Name" class="form-control" placeholder="Name"  required>
+		      		</div>
+                      <div class="form-group">
+                        <input type="text" for="Email" name = "Email" id = "Email" class="form-control" placeholder="Email"  required>
+                    </div>
+               <div class="form-group">
+	              <input id="password-field" type="text" for="password" id="password" name = "password" class="form-control" placeholder="Password"  required>
+	              <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+	            </div>
+	            <div class="form-group">
+                    <input type="submit" class="form-control btn btn-primary submit px-3"value="Register">
+	            </div>
+
+
+
+
+            </body>
+</html> -->
