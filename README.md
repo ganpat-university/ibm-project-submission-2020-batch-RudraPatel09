@@ -1,1 +1,1 @@
-"# industry-project-submission-2020-batch-RudraPatel09" 
+'Disease Prediction Based On Symptoms'
